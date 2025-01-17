@@ -1,18 +1,20 @@
-import React from 'react'
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import React, { useEffect, useState } from 'react'
 import Signin from './Login/Signin'
 import CreationCompte from './Login/CreationCompte'
 import AllRoute from './AllRoute'
 
 
 function App() {
-  const [connexion, setConnexion] = React.useState(true)
+  const [connexion, setConnexion] = React.useState(false)
   const [LoginOrCreationCompte, setLoginOrCreationCompte] = React.useState(true)
-  
+  const [message, setMessage] = useState("");
+
   return (
     <div>
-      { !connexion ?
+     {message && <pre>{JSON.stringify(message, null, 2)}</pre>}
 
+      { !connexion ?
+        
         LoginOrCreationCompte ?
         <Signin  {...{setLoginOrCreationCompte}}/>
         
@@ -28,4 +30,4 @@ function App() {
   )
 }
 
-export default App
+export default App 

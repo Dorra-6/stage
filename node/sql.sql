@@ -3,8 +3,9 @@ CREATE TABLE admine (
     nom VARCHAR(255),
     prenom VARCHAR(255),
     motDePasse VARCHAR(255),
-    email VARCHAR5(255)
+    email VARCHAR(255)
 );
+DROP TABLE admine;
 
 CREATE TABLE client (
     client_id SERIAL PRIMARY KEY   ,
@@ -12,3 +13,4 @@ CREATE TABLE client (
     prenom VARCHAR(255),
 admine_id SERIAL REFERENCES admine (admine_id)
 );
+DROP TABLE client;

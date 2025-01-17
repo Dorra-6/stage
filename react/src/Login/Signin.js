@@ -125,7 +125,7 @@ export default function SignUp({setLoginOrCreationCompte}) {
             variant="h4"
             sx={{ width: '100%', fontSize: 'clamp(2rem, 10vw, 2.15rem)' }}
           >
-            Log in
+            Connexion
           </Typography>
           <Box
             component="form"
@@ -149,7 +149,7 @@ export default function SignUp({setLoginOrCreationCompte}) {
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">Mot de passe</FormLabel>
               <TextField
                 required
                 fullWidth
@@ -171,21 +171,21 @@ export default function SignUp({setLoginOrCreationCompte}) {
               variant="contained"
               onClick={validateInputs}
             >
-              Log In
+              conencter
             </Button>
           </Box>
           <Divider>
-            <Typography sx={{ color: 'text.secondary' }}>or</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>ou</Typography>
           </Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             
             <Typography sx={{ textAlign: 'center' }}>
-              Don't have an account?{' '}
+              T'as pas de compte?{' '}
               <Button  onClick={()=>{
                       setLoginOrCreationCompte(false)
               }}>
 
-                Sign Up
+                Créer un compte
               </Button>
               
             </Typography>

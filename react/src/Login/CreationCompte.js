@@ -1,7 +1,8 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Checkbox from '@mui/material/Checkbox';
+import  { useEffect, useState } from 'react'
+
 import CssBaseline from '@mui/material/CssBaseline';
 import Divider from '@mui/material/Divider';
 import FormControlLabel from '@mui/material/FormControlLabel';
@@ -57,64 +58,44 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
 }));
 
 export default function CreationCompte( {setLoginOrCreationCompte} ) {
-  const [emailError, setEmailError] = React.useState(false);
-  const [emailErrorMessage, setEmailErrorMessage] = React.useState('');
-  const [passwordError, setPasswordError] = React.useState(false);
-  const [passwordErrorMessage, setPasswordErrorMessage] = React.useState('');
-  const [nameError, setNameError] = React.useState(false);
-  const [nameErrorMessage, setNameErrorMessage] = React.useState('');
+const Swal = require('sweetalert2')
 
-  const validateInputs = () => {
-    const email = document.getElementById('email');
-    const password = document.getElementById('password');
-    const name = document.getElementById('name');
+  const [nom, setnom] = useState("")
+  const [prenom, setprenom] = useState("")
+  const [motDePasse, setmotDePasse] = useState("")
+  const [email, setemail] = useState("")
 
-    let isValid = true;
-
-    if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
-      setEmailError(true);
-      setEmailErrorMessage('Please enter a valid email address.');
-      isValid = false;
-    } else {
-      setEmailError(false);
-      setEmailErrorMessage('');
-    }
-
-    if (!password.value || password.value.length < 6) {
-      setPasswordError(true);
-      setPasswordErrorMessage('Password must be at least 6 characters long.');
-      isValid = false;
-    } else {
-      setPasswordError(false);
-      setPasswordErrorMessage('');
-    }
-
-    if (!name.value || name.value.length < 1) {
-      setNameError(true);
-      setNameErrorMessage('Name is required.');
-      isValid = false;
-    } else {
-      setNameError(false);
-      setNameErrorMessage('');
-    }
-
-    return isValid;
-  };
-
-  const handleSubmit = (event) => {
-    if (nameError || emailError || passwordError) {
-      event.preventDefault();
-      return;
-    }
-    const data = new FormData(event.currentTarget);
-    console.log({
-      name: data.get('name'),
-      lastName: data.get('lastName'),
-      email: data.get('email'),
-      password: data.get('password'),
+const Creation = () => { 
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+        nom: nom,
+        prenom: prenom,
+        motDePasse: motDePasse,
+        email: email
+     })
+};
+if(nom.length > 0 && prenom.length > 0 && motDePasse.length > 0 && email.length > 0  ){
+  fetch('http://localhost:5000/admine-post', requestOptions)
+  .then(response => response.json())
+  .then(data => {
+    setLoginOrCreationCompte(true);
+    Swal.fire({
+      title: data,
+      icon: "success",
+      draggable: true
     });
-  };
+  });
+}else {
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "remplir tous les champs!",
+  });
+}
 
+ }
   return (
     <Box >
       <CssBaseline enableColorScheme />
@@ -128,22 +109,36 @@ export default function CreationCompte( {setLoginOrCreationCompte} ) {
             Creation Compte
           </Typography>
           <Box
-            component="form"
-            onSubmit={handleSubmit}
             sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}
           >
             <FormControl>
-              <FormLabel htmlFor="name">Full name</FormLabel>
+              <FormLabel htmlFor="name">Nom </FormLabel>
               <TextField
                 autoComplete="name"
                 name="name"
                 required
                 fullWidth
                 id="name"
-                placeholder="Jon Snow"
-                error={nameError}
-                helperText={nameErrorMessage}
-                color={nameError ? 'error' : 'primary'}
+                placeholder="Jon "
+                color={'primary'}
+                onChange={(e) => { 
+                setnom(e.target.value)
+                }}
+              />
+            </FormControl>
+            <FormControl>
+            <FormLabel htmlFor="prenom">Prenom</FormLabel>
+              <TextField
+                autoComplete="prenom"
+                name="prenom"
+                required
+                fullWidth
+                id="prenom"
+                placeholder="Snow"
+                color={ 'primary'}
+                onChange={(e) => { 
+                  setprenom(e.target.value)
+                  }}
               />
             </FormControl>
             <FormControl>
@@ -156,13 +151,14 @@ export default function CreationCompte( {setLoginOrCreationCompte} ) {
                 name="email"
                 autoComplete="email"
                 variant="outlined"
-                error={emailError}
-                helperText={emailErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
+                color={ 'primary'}
+                onChange={(e) => { 
+                  setemail(e.target.value)
+                  }}
               />
             </FormControl>
             <FormControl>
-              <FormLabel htmlFor="password">Password</FormLabel>
+              <FormLabel htmlFor="password">Mot de passe</FormLabel>
               <TextField
                 required
                 fullWidth
@@ -172,33 +168,33 @@ export default function CreationCompte( {setLoginOrCreationCompte} ) {
                 id="password"
                 autoComplete="new-password"
                 variant="outlined"
-                error={passwordError}
-                helperText={passwordErrorMessage}
-                color={passwordError ? 'error' : 'primary'}
+                color={'primary'}
+                onChange={(e) => { 
+                  setmotDePasse(e.target.value)
+                  }}
               />
             </FormControl>
            
             <Button
-              type="submit"
               fullWidth
               variant="contained"
-              onClick={validateInputs}
+              onClick={Creation}
             >
-              Sign up
+              Inscription
             </Button>
           </Box>
           <Divider>
-            <Typography sx={{ color: 'text.secondary' }}>or</Typography>
+            <Typography sx={{ color: 'text.secondary' }}>ou</Typography>
           </Divider>
           <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             
             <Typography sx={{ textAlign: 'center' }}>
-              Already have an account?{' '}
+              T'as dèja un compte?{' '}
               <Button  onClick={()=>{
                       setLoginOrCreationCompte(true);
               }}>
 
-                Log In
+                Connecter
               </Button>
               
             </Typography>

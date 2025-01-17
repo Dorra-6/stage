@@ -1,5 +1,7 @@
 const express = require("express");
+const cors = require('cors');
 const app = express();
+app.use(cors());
 const pg = require("pg");
 const connectionString = "postgresql://postgres:DA972021@localhost:5432/stage1";
 const client = new pg.Client({
@@ -11,7 +13,7 @@ app.get("/admine-get", async (req, res) => {
   try {
     const sql = "SELECT * FROM admine";
     const data = await client.query(sql);
-    res.json(data.rows);
+    res.json({message : data.rows});
   } catch (err) {
     console.log(err);
   }
@@ -29,7 +31,7 @@ app.delete("/admine-delete/:id", async (req, res) => {
 app.post("/admine-post", async (req, res) => {
   try {
     const { nom, prenom, motDePasse, email } = req.body;
-    const sql = `INSERT INTO admine (nom, prenom, motDePasse,email)
+    const sql = `INSERT INTO admine (nom, prenom, motDePasse, email)
 VALUES ('${nom}', '${prenom}', '${motDePasse}','${email}')`;
     const data = await client.query(sql);
     res.json("post new admine")
@@ -52,7 +54,18 @@ app.put("/admine-put/:id", async (req,res) => {
         console.log(err);
     }
  });
-
+app.post("/admine-Login", async (req,res) => { 
+  try {
+    const { motDePasse,email } = req.body;
+    const sql =`SELECT * FROM admine
+WHERE  motDePasse ='${motDePasse}' and email='${email}'`
+    const data = await client.query(sql);
+    res.json(data.rows)
+  }
+  catch (err){
+    console.log(err);
+  }
+ })
 /// client
 app.get("/client-get",async (req,res) => {
     try {
@@ -75,10 +88,10 @@ app.delete("/client-delete/:id",async(req,res) => {
 });  
 app.post("/client-post", async (req, res) => {
     try {
-      const { nom, prenom } = req.body;
-      const sql = `INSERT INTO client (nom, prenom)
-  VALUES ('${nom}', '${prenom}')`;
-      const data = await client.query(sql);
+      const { nom, prenom, admine_id } = req.body;
+      const sql = `INSERT INTO client (nom, prenom ,admine_id)
+  VALUES ('${nom}', '${prenom}', '${admine_id}')`;
+       await client.query(sql);
       res.json("post new admine") 
     } catch (err) {
       console.log(err); 
@@ -104,5 +117,5 @@ client.connect().then(() => {
 });
 
 app.listen(5000, () => {
-  console.log("serveur run on port 5000");
+  console.log("serveur run on http://localhost:5000/admine-get");
 });
