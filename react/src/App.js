@@ -1,33 +1,33 @@
-import React, { useEffect, useState } from 'react'
-import Signin from './Login/Signin'
-import CreationCompte from './Login/CreationCompte'
-import AllRoute from './AllRoute'
-
+import React, { useEffect, useState } from "react";
+import Signin from "./Login/Signin";
+import CreationCompte from "./Login/CreationCompte";
+import AllRoute from "./AllRoute";
+import "./index.css";
 
 function App() {
-  const [connexion, setConnexion] = React.useState(false)
-  const [LoginOrCreationCompte, setLoginOrCreationCompte] = React.useState(true)
-  const [message, setMessage] = useState("");
+  const [connexion, setConnexion] = React.useState(false);
+  const [LoginOrCreationCompte, setLoginOrCreationCompte] =
+    React.useState(true);
+  useEffect(() => {
+    setConnexion(localStorage.getItem("admine_id"));
+  }, [connexion]);
 
   return (
     <div>
-     {message && <pre>{JSON.stringify(message, null, 2)}</pre>}
-
-      { !connexion ?
-        
-        LoginOrCreationCompte ?
-        <Signin  {...{setLoginOrCreationCompte}}/>
-        
-:
-<CreationCompte setLoginOrCreationCompte={setLoginOrCreationCompte}/>
-:< AllRoute/>
-
-
-      }
-    
-    
+      {!connexion ? (
+        LoginOrCreationCompte ? (
+          <Signin
+            {...{setLoginOrCreationCompte}}
+            setConnexion={setConnexion}
+          />
+        ) : (
+          <CreationCompte setLoginOrCreationCompte={setLoginOrCreationCompte} />
+        )
+      ) : (
+        <AllRoute setConnexion={setConnexion}/>
+      )}
     </div>
-  )
+  );
 }
 
-export default App 
+export default App;

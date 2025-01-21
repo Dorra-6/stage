@@ -5,18 +5,24 @@ import Commande from './pages/Commandes'
 import NoPage from './pages/NoPage'
 import DrawerLeft from './Components/DrawerLeft'
 import Contact from './pages/Contact'
-import Welcome from './Welcome/Welcome'
+import Welcome from './pages/Welcome/index'
+import MenuAppBar from './Components/AppBar'
+import Produit from './pages/Produit'
 
-function AllRoute() {
+function AllRoute({ setConnexion }) {
   return (
     <BrowserRouter>
       <div  style={{ textAlign:'center' }}>
+        <MenuAppBar setConnexion={setConnexion}/>
         <DrawerLeft />
+        
       <Routes>
       <Route index element={<Welcome />} />
         <Route path="/Client" element={<Client />} />
         <Route path="/Commande" element={<Commande />} />
         <Route path="/Contact" element={<Contact />} />
+        <Route path="/Produit" element={<Produit />} />
+
         <Route path="*" element={<NoPage />} />
 
       </Routes>
