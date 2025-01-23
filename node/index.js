@@ -92,7 +92,7 @@ app.post("/client-post", async (req, res) => {
       const sql = `INSERT INTO client (nom_prenom, adresse ,admine_id)
   VALUES ('${nom_prenom}', '${adresse}', '${admine_id}')`;
        await client.query(sql);
-      res.json("post new client") 
+      res.json("post new client " + nom_prenom +" avec l'addres "+adresse) 
     } catch (err) {
       console.log(err); 
     }
@@ -105,7 +105,7 @@ app.put("/client-put/:id", async (req,res) => {
       SET nom_prenom = '${nom_prenom}', adresse = '${adresse}'
       WHERE client_id =${id}`
        await client.query(sql);
-      res.json("la colonne modifié est d'id "+id)
+      res.json(" colonne modifié avec succées ")
     }
     catch (err){
         console.log(err);
@@ -116,9 +116,9 @@ app.put("/client-put/:id", async (req,res) => {
 
 app.get("/produit-get", async (req, res) => {
   try {
-    const sql = "SELECT * FROM produits";
+    const sql = "SELECT * FROM produit";
     const data = await client.query(sql);
-    res.json({message : data.rows});
+    res.json(data.rows);
   } catch (err) {
     console.log(err);
   }
@@ -126,7 +126,7 @@ app.get("/produit-get", async (req, res) => {
 app.delete("/produit-delete/:id", async (req, res) => {
   try {
     const id = req.params.id;
-    const sql = `DELETE FROM produits WHERE produit_id =${id}`;
+    const sql = `DELETE FROM produit WHERE produit_id =${id}`;
     const data = await client.query(sql);
     res.json("produit avec l'id " + id + " a ete supprimé");
   } catch (err) {
@@ -136,10 +136,10 @@ app.delete("/produit-delete/:id", async (req, res) => {
 app.post("/produit-post", async (req, res) => {
   try {
     const { nom, image, prix, admine_id } = req.body;
-    const sql = `INSERT INTO produits (nom, image, prix, admine_id)
+    const sql = `INSERT INTO produit (nom, image, prix, admine_id)
 VALUES ('${nom}', '${image}', '${prix}','${admine_id}')`;
-    const data = await client.query(sql);
-    res.json("post new produit")
+     await client.query(sql);
+    res.json("post new produit "+nom +" avec le prix "+ prix +" $")
   } catch (err) {
     console.log(err);
   }
@@ -148,7 +148,7 @@ app.put("/produit-put/:id", async (req,res) => {
   try {
     const { nom, image , prix } = req.body;
     const id = req.params.id;
-    const sql =`UPDATE produits
+    const sql =`UPDATE produit
     SET nom = '${nom}', image = '${image}' , prix = '${prix}'
     WHERE produit_id =${id}`
     const data = await client.query(sql);

@@ -1,8 +1,9 @@
 import React from 'react';
-import { Drawer, List, ListItem, ListItemText, ListItemIcon, Divider } from '@mui/material';
+import { Drawer, List, ListItem, ListItemText, ListItemIcon, Divider, Box } from '@mui/material';
 import { Home, ShoppingCart, ContactMail } from '@mui/icons-material'; // Import icons
 import { Link, useLocation } from 'react-router-dom';
-
+import StoreRoundedIcon from '@mui/icons-material/StoreRounded';
+import LocalOfferRoundedIcon from '@mui/icons-material/LocalOfferRounded';
 function DrawerLeft() {
   let location = useLocation();
   console.log(location)
@@ -15,24 +16,25 @@ function DrawerLeft() {
         '& .MuiDrawer-paper': {
           width: 250,
           boxSizing: 'border-box',
+          bgcolor : ['#F1DABF']
         },
       }}
     >
       
-      <div style={{ padding: '16px', fontWeight: 'bold', fontSize: '18px' }}>
+      <Box style={{ padding: '16px', fontWeight: 'bold', fontSize: '18px', bgcolor : ['#92817A'] }}>
         My Application
-      </div>
+      </Box>
       <Divider />
       <List>
         <ListItem component={Link} to="/Client" className={location.pathname == "/Client" ? "bg-slate-200" :null } >
           <ListItemIcon>
-            <Home />
+            <StoreRoundedIcon/>
           </ListItemIcon>
           <ListItemText primary="Client" />
         </ListItem>
         <ListItem component={Link} to="/Produit" className={location.pathname == "/Produit" ? "bg-slate-200" :null }>
           <ListItemIcon>
-            <Home />
+            < LocalOfferRoundedIcon/>
           </ListItemIcon>
           <ListItemText primary="Produit" />
         </ListItem>

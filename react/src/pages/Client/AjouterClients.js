@@ -51,7 +51,7 @@ function AjouterClients({setOpen,open,setMise_a_Jour}) {
                 container: "my-custom-container-class",
               },
           });
-          setMise_a_Jour(data)
+          setMise_a_Jour(data);
           handleClose()
         });
       }else {

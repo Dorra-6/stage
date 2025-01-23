@@ -39,7 +39,7 @@ export default function MenuAppBar({ setConnexion }) {
   return (
     <Box sx={{ flexGrow: 1, ml: 30 }}>
       <AppBar position="static">
-        <Toolbar className="bg-[#9c27b0]">
+        <Toolbar className="bg-[#92817A]">
           <Typography
             variant="h6"
             component="div"
@@ -56,7 +56,7 @@ export default function MenuAppBar({ setConnexion }) {
               color="inherit"
             >
               <Avatar
-                sx={{ bgcolor: deepOrange[500] }}
+                sx={{bgcolor : ['#F1DABF']}}
                 alt="Remy Sharp"
                 src="/broken-image.jpg"
               >
