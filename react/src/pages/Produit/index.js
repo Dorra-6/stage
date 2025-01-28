@@ -79,7 +79,7 @@ function Produit() {
                       <td>
                         <Button
                           variant="contained"
-                          style={{ backgroundColor: "red" }}
+                          style={{ backgroundColor: "#D94F4F" }}
                           onClick={() => {
                             DeleteProduit(produit.produit_id);
                           }}

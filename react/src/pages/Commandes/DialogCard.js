@@ -72,8 +72,7 @@ const DialogCard = ({
         <DialogContent dividers>
           <Stack direction="row" spacing={3}>
             <Button
-              variant="contained"
-              color="success"
+              sx={{ bgcolor: "#4A6D85 " , color : "white"}}
               size="large"
               onClick={() => setCount(count + 1)}
             >
@@ -81,8 +80,7 @@ const DialogCard = ({
             </Button>
             <Box sx={{ ml: 2, fontSize: 40, mb: 4 }}>{count}</Box>
             <Button
-              variant="outlined"
-              color="error"
+              style={{ backgroundColor: "#D94F4F" , color : "white"}}
               size="large"
               onClick={() => setCount(count > 1 ? count - 1 : count)}
             >
@@ -97,7 +95,7 @@ const DialogCard = ({
           }}
           // color="black"
           // size="large"
-          variant="contained"
+          sx={{ bgcolor: "#4A6D85 " , color : "white"}}
         >
           {" "}
           Commander

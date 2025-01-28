@@ -36,8 +36,8 @@ function Client() {
   };
 
   return (
-    <div className="bg-[#F8F1E4]">
-      <div className="bg-[#F8F1E4]">
+    <div >
+      <div >
         <Button
           
           sx={{
@@ -82,8 +82,8 @@ function Client() {
                   </td>
                   <td>
                     <Button
-                      variant="contained"
-                      style={{ backgroundColor: "#D94F4F" }}
+                      
+                      style={{ backgroundColor: "#D94F4F" , color : "white"}}
                       onClick={() => {
                         Delete(client.client_id);
                       }}

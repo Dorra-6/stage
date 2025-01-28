@@ -81,8 +81,7 @@ const ModifierProduit = ({ setMise_a_Jour_produit, produit }) => {
     <div>
       <Button
         onClick={handleClickOpenP}
-        variant="contained"
-        sx={{ bgcolor: "contained" }}
+        sx={{ bgcolor: "#4A6D85 ", color : "white"}}
       >
         Modifier
       </Button>

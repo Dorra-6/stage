@@ -8,6 +8,7 @@ import Welcome from './pages/Welcome/index'
 import MenuAppBar from './Components/AppBar'
 import Produit from './pages/Produit'
 import Profile from './pages/Profile'
+import Historique from './pages/Historique'
 
 function AllRoute({ setConnexion }) {
   return (
@@ -22,6 +23,8 @@ function AllRoute({ setConnexion }) {
         <Route path="/Commande" element={<Commande />} />
         <Route path="/Profile" element={<Profile />} />
         <Route path="/Produit" element={<Produit />} />
+        <Route path="/Historique" element={<Historique />} />
+
 
         <Route path="*" element={<NoPage />} />
 

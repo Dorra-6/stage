@@ -24,7 +24,6 @@ function Commande() {
   const [produitTemporaire, setproduitTemporaire] = React.useState([]);
   const [PrixTotale, setPrixTotale] = React.useState(0);
   const [nom_client, setnom_client] = useState("")
-  const [Commande, setCommande] = React.useState([]);
   const [table, setTable] = useState([]);
 
   const Swal = require('sweetalert2')
@@ -132,7 +131,7 @@ fetch('http://localhost:5000/commande-post', requestOptions)
               </CardContent>
               <CardActions className="flex justify-between">
                 <Button
-                  variant="outlined"
+                  sx={{ bgcolor: "#4A6D85 " , color : "white"}}
                   onClick={() => {
                     handleClickOpen();
                     setproduitTemporaire(produit);
@@ -173,7 +172,7 @@ fetch('http://localhost:5000/commande-post', requestOptions)
                     <td>{table.count}</td>
                     <td>{table.total} $</td>
                     <td>
-                      <Button color="error" onClick={() => handleRemove(index)}>
+                      <Button sx={{ bgcolor: "#D94F4F" , color : "white"}} onClick={() => handleRemove(index)}>
                         Remove
                       </Button>
                     </td>
@@ -191,7 +190,7 @@ fetch('http://localhost:5000/commande-post', requestOptions)
                   </td>
                   <br />
                   <th> 
-                    <Button variant="contained" onClick={PostNewCommande}> Commander</Button>
+                    <Button sx={{ bgcolor: "#4A6D85 " , color :"white"}} onClick={PostNewCommande}> Commander</Button>
                   </th>
                 </tr>
               </tfoot>
