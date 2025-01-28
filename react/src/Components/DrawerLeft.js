@@ -16,7 +16,7 @@ function DrawerLeft() {
         '& .MuiDrawer-paper': {
           width: 250,
           boxSizing: 'border-box',
-          bgcolor : ['#F1DABF']
+          bgcolor : ['#F8F1E4']
         },
       }}
     >
@@ -44,11 +44,11 @@ function DrawerLeft() {
           </ListItemIcon>
           <ListItemText primary="Commande" />
         </ListItem>
-          <ListItem component={Link} to="/contact" className={location.pathname == "/contact" ? "bg-slate-200" :null }>
+          <ListItem component={Link} to="/Profile" className={location.pathname == "/Profile" ? "bg-slate-200" :null }>
           <ListItemIcon>
             <ContactMail /> 
           </ListItemIcon>
-          <ListItemText primary="Contact Us" />
+          <ListItemText primary="Profile" />
         </ListItem>
        </List>
       <Divider />

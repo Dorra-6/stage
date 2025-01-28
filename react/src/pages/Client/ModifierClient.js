@@ -81,7 +81,7 @@ const ModifierClient = ({ setMise_a_Jour, client }) => {
       <Button
         onClick={handleClickOpenM}
         variant="contained"
-        sx={{ bgcolor: ["#DFB6B2"] }}
+        sx={{ bgcolor: "#4A6D85 "}}
       >
         Modifier
       </Button>

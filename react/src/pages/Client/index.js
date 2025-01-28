@@ -36,15 +36,15 @@ function Client() {
   };
 
   return (
-    <div>
-      <div>
+    <div className="bg-[#F8F1E4]">
+      <div className="bg-[#F8F1E4]">
         <Button
+          
           sx={{
             marginTop: "40px",
             marginLeft: "1300px",
-            bgcolor: "#ba68c8",
             color: "white",
-            bgcolor: ["#854F6C"],
+            bgcolor : "#4A6D85"
           }}
           onClick={handleClickOpen}
         >
@@ -52,7 +52,7 @@ function Client() {
         </Button>
         <AjouterClients {...{ setOpen, open, setMise_a_Jour }} />
       </div>
-      <section className="ml-[350px] mt-20 ">
+      <section className="ml-[350px] mt-20 border-dashed">
         {client.length == 0 ? (
           <h1 className="mt-[100px] font-bold text-[35px]">
             vous n'avez pas des clients
@@ -83,7 +83,7 @@ function Client() {
                   <td>
                     <Button
                       variant="contained"
-                      style={{ backgroundColor: "red" }}
+                      style={{ backgroundColor: "#D94F4F" }}
                       onClick={() => {
                         Delete(client.client_id);
                       }}
@@ -97,7 +97,7 @@ function Client() {
           </table>
         )}
       </section>
-      <section></section>
+      
     </div>
   );
 }

@@ -105,7 +105,7 @@ export default function SignUp({ setLoginOrCreationCompte, setConnexion }) {
   };
 
   return (
-    <Box>
+    <Box sx={{bgcolor : ['#2C3E50']}}>
       <CssBaseline enableColorScheme />
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">

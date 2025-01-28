@@ -39,7 +39,7 @@ function Produit() {
             marginLeft: "1300px",
             bgcolor: "#ba68c8",
             color: "white",
-            bgcolor : ['#854F6C']
+            bgcolor : "contained"
           }}
           onClick={handleClickOpen}
         >

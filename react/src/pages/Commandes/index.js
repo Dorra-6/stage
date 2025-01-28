@@ -3,9 +3,7 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import DialogActions from "@mui/material/DialogActions";
-import IconButton from "@mui/material/IconButton";
-import CloseIcon from "@mui/icons-material/Close";
+
 import {
   Box,
   Button,
@@ -13,38 +11,55 @@ import {
   CardActions,
   CardContent,
   CardMedia,
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  Stack,
-  styled,
   Typography,
 } from "@mui/material";
 import image from "./produit.jpg";
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-  "& .MuiDialogContent-root": {
-    padding: theme.spacing(2),
-  },
-  "& .MuiDialogActions-root": {
-    padding: theme.spacing(1),
-  },
-}));
+import DialogCard from "./DialogCard";
+
 function Commande() {
   const [nom_prenom, setnom_prenom] = useState("");
   const [client, setClient] = useState([]);
   const [produit, setproduit] = useState([]);
   const [ouvre, setOuvre] = React.useState(false);
+  const [produitTemporaire, setproduitTemporaire] = React.useState([]);
+  const [PrixTotale, setPrixTotale] = React.useState(0);
+  const [nom_client, setnom_client] = useState("")
+  const [Commande, setCommande] = React.useState([]);
+  const [table, setTable] = useState([]);
 
+  const Swal = require('sweetalert2')
+const PostNewCommande = () => { 
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ 
+      prixt: table.reduce((sum, table) => sum + table.total, 0),
+      nom_client: nom_prenom,
+      admine_id : localStorage.getItem("admine_id")
+     })
+};
+if ( nom_prenom.length === 0){
+  Swal.fire({
+    icon: "error",
+    title: "Oops...",
+    text: "il faut sélectionner un client!"    
+  });
+}else {
+fetch('http://localhost:5000/commande-post', requestOptions)
+    .then(response => response.json())
+    .then(data => 
+      setTable([])
+
+    )}}
   const handleClickOpen = () => {
     setOuvre(true);
   };
-  const handleClose = () => {
-    setOuvre(false);
-  };
+
   // const [reset, setReset] = useState("");
   const handleChange = (e) => {
     setnom_prenom(e.target.value);
   };
+
   useEffect(() => {
     fetch("http://localhost:5000/client-get")
       .then((response) => response.json())
@@ -59,8 +74,15 @@ function Commande() {
         setproduit(data);
       });
   }, []);
+  const handleRemove = (index) => {
+    const newTable = [...table.slice(0, index), ...table.slice(index + 1)];
+
+    setTable(newTable);
+    // table.slice(index,1)
+  };
+  console.log(table);
   return (
-    <div className="flex justify-center flex-col">
+    <div className="flex justify-center flex-col ">
       <div className="mt-5">
         <FormControl
           sx={{
@@ -84,7 +106,7 @@ function Commande() {
             onChange={handleChange}
           >
             {client.map((client) => (
-              <MenuItem value={client.client_id}>{client.nom_prenom}</MenuItem>
+              <MenuItem value={client.nom_prenom}>{client.nom_prenom}</MenuItem>
             ))}
           </Select>
         </FormControl>
@@ -94,14 +116,14 @@ function Commande() {
         <div className="ml-3 flex flex-wrap w-[63%] border-r-[6px] border-balck ">
           {produit.map((produit) => (
             <Card
-            className="mb-3 mr-3"
+              className="mb-3 mr-3"
               sx={{ minWidth: 250 }}
               // key={produit.id}
             >
               <CardMedia
                 sx={{ height: 140 }}
                 image={image}
-                title="green iguana"
+                title="Bon Appeti"
               />
               <CardContent>
                 <Typography gutterBottom variant="h5" component="div">
@@ -109,32 +131,72 @@ function Commande() {
                 </Typography>
               </CardContent>
               <CardActions className="flex justify-between">
-                <Button variant="outlined" onClick={handleClickOpen}>
+                <Button
+                  variant="outlined"
+                  onClick={() => {
+                    handleClickOpen();
+                    setproduitTemporaire(produit);
+                  }}
+                >
                   ADD
                 </Button>
                 <div className="text-[25px]">{produit.prix} $</div>
-                
               </CardActions>
             </Card>
           ))}
         </div>
+        <DialogCard
+          {...{ ouvre, setOuvre, produitTemporaire, table, setTable }}
+        />
         <div className="flex ml-10">
-           <table className="w-full border-separate  grow" style={{borderSpacing: "10px"}}>
-           <thead>
-    <tr>
-      <th>Nom</th>
-      <th>Quantité</th>
-      <th>prix</th>
-      <th>Remove</th>
-
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td></td>
-    </tr>
-  </tbody>
-           </table>
+          {table.length === 0 ? (
+            <h1 className="ml-20 , mt-40 ">
+              <b>vous n'avez pas des commandes</b>
+            </h1>
+          ) : (
+            <table
+              className="w-full border-separate  grow h-6"
+              style={{ borderSpacing: "30px" }}
+            >
+              <thead>
+                <tr>
+                  <th>Nom</th>
+                  <th>Quantité</th>
+                  <th>prix</th>
+                  <th>Remove</th>
+                </tr>
+              </thead>
+              <tbody>
+                {table.map((table, index) => (
+                  <tr key={index}>
+                    <td>{table.nom}</td>
+                    <td>{table.count}</td>
+                    <td>{table.total} $</td>
+                    <td>
+                      <Button color="error" onClick={() => handleRemove(index)}>
+                        Remove
+                      </Button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+              <tfoot>
+              
+                <tr >
+                  <td className="font-bold">
+                    Totale: 
+                  </td>
+                  <td >
+                  {table.reduce((sum, table) => sum + table.total, 0)}  $
+                  </td>
+                  <br />
+                  <th> 
+                    <Button variant="contained" onClick={PostNewCommande}> Commander</Button>
+                  </th>
+                </tr>
+              </tfoot>
+            </table>
+          )}
         </div>
       </div>
     </div>

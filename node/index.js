@@ -41,10 +41,10 @@ VALUES ('${nom}', '${prenom}', '${motDePasse}','${email}')`;
 });
 app.put("/admine-put/:id", async (req,res) => { 
     try {
-      const { nom, prenom, motDePasse, email } = req.body;
+      const { nom, prenom, mot_de_passe, email } = req.body;
       const id = req.params.id;
       const sql =`UPDATE admine
-      SET nom = '${nom}', prenom = '${prenom}', motDePasse ='${motDePasse}',email ='${email}'
+      SET nom = '${nom}', prenom = '${prenom}', mot_de_passe ='${mot_de_passe}',email ='${email}'
       WHERE admine_id =${id}`
       const data = await client.query(sql);
       res.json("la colonne modifié est d'id "+id)
@@ -111,7 +111,7 @@ app.put("/client-put/:id", async (req,res) => {
         console.log(err);
     }
  });
-
+// PRODUIT
 
 
 app.get("/produit-get", async (req, res) => {
@@ -152,7 +152,53 @@ app.put("/produit-put/:id", async (req,res) => {
     SET nom = '${nom}', image = '${image}' , prix = '${prix}'
     WHERE produit_id =${id}`
     const data = await client.query(sql);
-    res.json("la colonne modifié est d'id "+id)
+    res.json("la colonne modifié avec succes")
+    
+  }
+  catch (err){
+      console.log(err);
+  }
+});
+// COMMANDE
+app.get("/commande-get", async (req, res) => {
+  try {
+    const sql = "SELECT * FROM commande";
+    const data = await client.query(sql);
+    res.json(data.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+app.delete("/commande-delete/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const sql = `DELETE FROM commande WHERE commande_id =${id}`;
+    const data = await client.query(sql);
+    res.json("commande avec l'id " + id + " a ete supprimé");
+  } catch (err) {
+    console.log(err); 
+  }
+});
+app.post("/commande-post", async (req, res) => {
+  try {
+    const { prixt , nom_client,admine_id } = req.body;
+    const sql = `INSERT INTO commande (prixT, nom_client, admine_id)
+VALUES ('${prixt}', '${nom_client}','${admine_id}')`;
+     await client.query(sql);
+    res.json("post new commande "+nom_client +" avec le prix "+ prixt )
+  } catch (err) {
+    console.log(err);
+  }
+});
+app.put("/commande-put/:id", async (req,res) => { 
+  try {
+    const { prixt, time , nom_client  } = req.body;
+    const id = req.params.id;
+    const sql =`UPDATE commande
+    SET prixT = '${prixt}', time = '${time}' , nom_client = '${nom_client}'
+    WHERE commande_id =${id}`
+    const data = await client.query(sql);
+    res.json("la colonne modifié avec succes")
     
   }
   catch (err){

@@ -23,8 +23,8 @@ CREATE TABLE produit (
 );
 CREATE TABLE commande (
     commande_id SERIAL PRIMARY KEY   ,
-    prixT VARCHAR(250),
+    prixt VARCHAR(250),
     time TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
 	nom_client VARCHAR(250),
-	client_id SERIAL REFERENCES client (client_id)
+admine_id SERIAL REFERENCES admine (admine_id)
 );
