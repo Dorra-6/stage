@@ -37,14 +37,14 @@ function Produit() {
           sx={{
             marginTop: "10px",
             marginLeft: "1300px",
-            bgcolor: "#ba68c8",
+            bgcolor: "#4A6D85",
             color: "white",
-            bgcolor : "contained"
+            
           }}
           onClick={handleClickOpen}
         >
           AJOUTER un produit
-        </Button>
+        </Button> 
         <Ajouterproduit
           {...{ openDialog, setOpenDialog, setMise_a_Jour_produit }}
         />

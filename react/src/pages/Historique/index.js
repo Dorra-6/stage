@@ -1,6 +1,7 @@
 import { Button } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import { useReactToPrint } from "react-to-print";
+import "./index.css"
 function Historique() {
   const [miseAjour, setMiseAjour] = useState("");
   const [Commande, setCommande] = React.useState([]);
@@ -34,8 +35,43 @@ function Historique() {
           </h1>
         ) : (
           <table
+          ref={printRef}
+            
             className="w-full border-separate"
-            style={{ borderSpacing: "10px" }}
+            style={{ borderSpacing: "10px" , display : "none" }}
+          >
+            <thead>
+              <tr className="font-bold text-green-800 text-[20px] place-content-center" >FACTURE</tr>
+              <tr>
+                <th>Nom de Client</th>
+                <th>Prix</th>
+                <th>Temps</th>
+              </tr>
+            </thead>
+            <tbody >
+              {Commande.map((Commande) => (
+                <tr key={Commande.commande_id}>
+                  <td>{Commande.nom_client}</td>
+                  <td>{Commande.prixt} $</td>
+                  <td>{Commande.time}</td>
+
+                  
+                </tr>
+              ))}
+            </tbody>
+            
+          </table>
+          
+        )}
+        {Commande.length == 0 ? (
+          <h1 className="mt-[100px] font-bold text-[35px]">
+            
+          </h1>
+        ) : (
+        <table
+            
+            className="w-full border-separate"
+            style={{ borderSpacing: "10px"   }}
           >
             <thead>
               <tr>
@@ -44,13 +80,12 @@ function Historique() {
                 <th>Temps</th>
               </tr>
             </thead>
-            <tbody ref={printRef}>
+            <tbody >
               {Commande.map((Commande) => (
                 <tr key={Commande.commande_id}>
                   <td>{Commande.nom_client}</td>
-                  <td>{Commande.prixt}</td>
+                  <td>{Commande.prixt} $</td>
                   <td>{Commande.time}</td>
-
                   <td>
                     <Button
                       style={{ backgroundColor: "#D94F4F", color: "white" }}
@@ -64,11 +99,8 @@ function Historique() {
                 </tr>
               ))}
             </tbody>
-            <tfoot>
-             
-            </tfoot>
-          </table>
-        )}
+            
+          </table>)}
          <Button
                 sx={{ bgcolor: "#4A6D85 ", color: "white", mt: "50px",  ml: "890px" , width : "102px"}}
                 onClick={handlePrint}
