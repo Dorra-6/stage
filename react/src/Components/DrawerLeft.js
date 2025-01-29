@@ -70,16 +70,7 @@ function DrawerLeft() {
           </ListItemIcon>
           <ListItemText primary="Commande" />
         </ListItem>
-        <ListItem
-          component={Link}
-          to="/Profile"
-          className={location.pathname == "/Profile" ? "bg-slate-200" : null}
-        >
-          <ListItemIcon>
-            <ContactMail />
-          </ListItemIcon>
-          <ListItemText primary="Profile" />
-        </ListItem>
+        
         <ListItem
           component={Link}
           to="/Historique"
@@ -89,6 +80,16 @@ function DrawerLeft() {
             <Timelapse />
           </ListItemIcon>
           <ListItemText primary="Historique" />
+        </ListItem>
+        <ListItem
+          component={Link}
+          to="/Profile"
+          className={location.pathname == "/Profile" ? "bg-slate-200" : null}
+        >
+          <ListItemIcon>
+            <ContactMail />
+          </ListItemIcon>
+          <ListItemText primary="Profile" />
         </ListItem>
       </List>
       <Divider />

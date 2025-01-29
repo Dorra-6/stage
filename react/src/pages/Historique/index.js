@@ -20,8 +20,10 @@ function Historique() {
       });
   };
   const printRef = useRef();
+
   const handlePrint = useReactToPrint({
-    content: () => printRef,
+    contentRef: printRef, // Here we pass the ref directly
+    onAfterPrint: () => console.log("Print complete!"),
   });
   return (
     <div>
@@ -32,7 +34,6 @@ function Historique() {
           </h1>
         ) : (
           <table
-            ref={printRef}
             className="w-full border-separate"
             style={{ borderSpacing: "10px" }}
           >
@@ -43,7 +44,7 @@ function Historique() {
                 <th>Temps</th>
               </tr>
             </thead>
-            <tbody>
+            <tbody ref={printRef}>
               {Commande.map((Commande) => (
                 <tr key={Commande.commande_id}>
                   <td>{Commande.nom_client}</td>
@@ -64,15 +65,16 @@ function Historique() {
               ))}
             </tbody>
             <tfoot>
-              <Button
-                sx={{ bgcolor: "#4A6D85 ", color: "white", mt: 5 }}
+             
+            </tfoot>
+          </table>
+        )}
+         <Button
+                sx={{ bgcolor: "#4A6D85 ", color: "white", mt: "50px",  ml: "890px" , width : "102px"}}
                 onClick={handlePrint}
               >
                 Imprimer
               </Button>
-            </tfoot>
-          </table>
-        )}
       </section>
     </div>
   );

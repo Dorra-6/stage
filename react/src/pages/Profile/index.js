@@ -38,38 +38,50 @@ function Profile() {
   const Swal = require("sweetalert2");
   const [nom, setnom] = useState(localStorage.getItem("nom"));
   const [prenom, setprenom] = useState(localStorage.getItem("prenom"));
-  const [mot_de_passe, setmot_de_passe] = useState(localStorage.getItem("mot_de_passe")
+  const [mot_de_passe, setmot_de_passe] = useState(
+    localStorage.getItem("mot_de_passe")
   );
   const [email, setemail] = useState(localStorage.getItem("email"));
   const [reset, setReset] = useState("");
   const [admine, setAdmine] = useState("");
-  
+
   const modified = () => {
     if (
-      nom !== admine.nom ||
-      prenom !== admine.prenom ||
-      mot_de_passe !== admine.mot_de_passe ||
-      email !== admine.email
+      nom !== localStorage.getItem("nom") ||
+      prenom !== localStorage.getItem("prenom") ||
+      mot_de_passe !== localStorage.getItem("mot_de_passe") ||
+      email !== localStorage.getItem("email")
     ) {
-    const requestOptions = {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        nom: nom,
-        prenom: prenom,
-        mot_de_passe: mot_de_passe,
-        email: email,
-      }),
-    };
-    
+      const requestOptions = {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nom: nom,
+          prenom: prenom,
+          mot_de_passe: mot_de_passe,
+          email: email,
+        }),
+      };
+
       fetch(
-        `http://localhost:5000/admine-put/${admine.admine_id}`,
+        `http://localhost:5000/admine-put/${localStorage.getItem("admine_id")}`,
         requestOptions
       )
         .then((response) => response.json())
         .then((data) => {
-          
-          setReset(data);
+          localStorage.setItem("nom", nom);
+          localStorage.setItem("prenom", prenom);
+          localStorage.setItem("mot_de_passe", mot_de_passe);
+          localStorage.setItem("email", email);
+
+          Swal.fire({
+            icon: "success",
+            text: "modifications effectué!",
+            customClass: {
+              popup: "my-custom-popup-class",
+              container: "my-custom-container-class",
+            },
+          });
         })
         .catch((error) => {
           console.error("Erreur lors de la requête:", error);
@@ -86,13 +98,6 @@ function Profile() {
       });
     }
   };
-  useEffect(() => {
-    fetch("http://localhost:5000/admine-get")
-      .then((response) => response.json())
-      .then((data) => {
-        setAdmine(data);
-      });
-  }, [reset]);
   return (
     <div className="ml-64 size-auto">
       <Box>
@@ -112,7 +117,7 @@ function Profile() {
             </Typography>
             <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
               <FormControl>
-                <FormLabel >Nom </FormLabel>
+                <FormLabel>Nom </FormLabel>
                 <TextField
                   fullWidth
                   value={nom}
@@ -147,7 +152,6 @@ function Profile() {
                 <TextField
                   value={mot_de_passe}
                   fullWidth
-                  type="password"
                   onChange={(e) => {
                     setmot_de_passe(e.target.value);
                   }}
@@ -159,7 +163,6 @@ function Profile() {
                 sx={{ bgcolor: "#4A6D85 ", color: "white" }}
                 onClick={() => {
                   modified();
-                  
                 }}
               >
                 Modifier
