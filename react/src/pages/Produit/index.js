@@ -7,19 +7,19 @@ function Produit() {
   const [openDialog, setOpenDialog] = React.useState(false);
   const [mise_a_Jour_produit, setMise_a_Jour_produit] = useState("");
   const [produit, setProduit] = React.useState([]);
-  console.log(produit)
+  console.log(produit);
   const handleClickOpen = () => {
     setOpenDialog(true);
-    
   };
   useEffect(() => {
-    fetch("http://localhost:5000/produit-get")
+    fetch(
+      `http://localhost:5000/produit-get/${localStorage.getItem("admine_id")}`
+    )
       .then((response) => response.json())
       .then((data) => {
         console.log("Données récupérées :", data);
         setProduit(data);
-      })
-      
+      });
   }, [mise_a_Jour_produit]);
   const DeleteProduit = (id) => {
     fetch(`http://localhost:5000/produit-delete/${id}`, { method: "DELETE" })
@@ -28,7 +28,6 @@ function Produit() {
         setMise_a_Jour_produit(data);
       });
   };
-
 
   return (
     <div>
@@ -39,60 +38,58 @@ function Produit() {
             marginLeft: "1300px",
             bgcolor: "#4A6D85",
             color: "white",
-            
           }}
           onClick={handleClickOpen}
         >
           AJOUTER un produit
-        </Button> 
+        </Button>
         <Ajouterproduit
           {...{ openDialog, setOpenDialog, setMise_a_Jour_produit }}
         />
       </div>
-    <section className="ml-[350px] mt-20 ">
-            {produit.length == 0 ? (
-              <h1 className="mt-[100px] font-bold text-[35px]">
-                vous n'avez pas des produits
-              </h1>
-            ) : (
-              <table className="w-full max-h-20 border-separate" style={{ borderSpacing: "10px" }}>
-                <thead>
-                  <tr>
-                    <th>Nom</th>
-                    <th>Prix</th>
-                    <th></th>
-                    <th></th>
-                  </tr>
-                </thead>
-                <tbody>
-                {produit?.map((produit) => 
-                    <tr key={produit.produit_id}>
-                      <td> 
-                          {produit.nom}
-                      </td>
-                      <td>
-                          {produit.prix} $
-                      </td>
-                      <td>
-                      <ModifierProduit {...{ setMise_a_Jour_produit, produit}}/>
-                      </td>
-                      <td>
-                        <Button
-                          variant="contained"
-                          style={{ backgroundColor: "#D94F4F" }}
-                          onClick={() => {
-                            DeleteProduit(produit.produit_id);
-                          }}
-                        >
-                          Supprimer
-                        </Button>
-                      </td>
-                    </tr>
-                  )}
-                </tbody>
-              </table>
-            )}
-          </section>
+      <section className="ml-[350px] mt-20 ">
+        {produit.length === 0 ? (
+          <h1 className="mt-[100px] font-bold text-[35px]">
+            vous n'avez pas des produits
+          </h1>
+        ) : (
+          <table
+            className="w-full max-h-20 border-separate"
+            style={{ borderSpacing: "10px" }}
+          >
+            <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prix</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              {produit?.map((produit) => (
+                <tr key={produit.produit_id}>
+                  <td>{produit.nom}</td>
+                  <td>{produit.prix} $</td>
+                  <td>
+                    <ModifierProduit {...{ setMise_a_Jour_produit, produit }} />
+                  </td>
+                  <td>
+                    <Button
+                      variant="contained"
+                      style={{ backgroundColor: "#D94F4F" }}
+                      onClick={() => {
+                        DeleteProduit(produit.produit_id);
+                      }}
+                    >
+                      Supprimer
+                    </Button>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        )}
+      </section>
     </div>
   );
 }

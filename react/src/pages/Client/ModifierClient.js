@@ -39,7 +39,7 @@ const ModifierClient = ({ setMise_a_Jour, client }) => {
         admine_id: localStorage.getItem("admine_id"),
       }),
     };
-    if (nom_prenom != client.nom_prenom || adresse != client.adresse) {
+    if (nom_prenom !== client.nom_prenom || adresse !== client.adresse) {
       fetch(
         `http://localhost:5000/client-put/${client.client_id}`,
         requestOptions
@@ -81,7 +81,7 @@ const ModifierClient = ({ setMise_a_Jour, client }) => {
       <Button
         onClick={handleClickOpenM}
         variant="contained"
-        sx={{ bgcolor: "#4A6D85 "}}
+        sx={{ bgcolor: "#4A6D85 " }}
       >
         Modifier
       </Button>

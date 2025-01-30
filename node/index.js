@@ -13,7 +13,7 @@ app.get("/admine-get", async (req, res) => {
   try {
     const sql = "SELECT * FROM admine";
     const data = await client.query(sql);
-    res.json({message : data.rows});
+    res.json( data.rows);
   } catch (err) {
     console.log(err);
   }
@@ -56,7 +56,7 @@ app.put("/admine-put/:id", async (req,res) => {
  });
 app.post("/admine-Login", async (req,res) => { 
   try {
-    const { motDePasse,email } = req.body;
+    const { motDePasse , email } = req.body;
     const sql =`SELECT * FROM admine
 WHERE  mot_de_passe ='${motDePasse}' and email='${email}'`
     const data = await client.query(sql);
@@ -70,6 +70,17 @@ WHERE  mot_de_passe ='${motDePasse}' and email='${email}'`
 app.get("/client-get",async (req,res) => {
     try {
         const sql = "SELECT * FROM client";
+        const data = await client.query(sql);
+        res.json(data.rows);
+      } catch (err) {
+        console.log(err);
+      }
+  }) 
+  app.get("/client-get/:id",async (req,res) => {
+    try {
+      const id = req.params.id;
+
+        const sql = `SELECT * FROM client WHERE admine_id =${id}`;
         const data = await client.query(sql);
         res.json(data.rows);
       } catch (err) {
@@ -92,7 +103,7 @@ app.post("/client-post", async (req, res) => {
       const sql = `INSERT INTO client (nom_prenom, adresse ,admine_id)
   VALUES ('${nom_prenom}', '${adresse}', '${admine_id}')`;
        await client.query(sql);
-      res.json("post new client " + nom_prenom +" avec l'addres "+adresse) 
+      res.json("Post new client " + nom_prenom +" avec l'adress "+adresse) 
     } catch (err) {
       console.log(err); 
     }
@@ -112,11 +123,20 @@ app.put("/client-put/:id", async (req,res) => {
     }
  });
 // PRODUIT
-
-
 app.get("/produit-get", async (req, res) => {
   try {
-    const sql = "SELECT * FROM produit";
+    const sql = "SELECT * FROM produit ";
+    const data = await client.query(sql);
+    res.json(data.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+app.get("/produit-get/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const sql = `SELECT * FROM produit WHERE admine_id =${id}`;
     const data = await client.query(sql);
     res.json(data.rows);
   } catch (err) {
@@ -162,7 +182,17 @@ app.put("/produit-put/:id", async (req,res) => {
 // COMMANDE
 app.get("/commande-get", async (req, res) => {
   try {
-    const sql = "SELECT * FROM commande";
+    const sql = "SELECT * FROM commande ";
+    const data = await client.query(sql);
+    res.json(data.rows);
+  } catch (err) {
+    console.log(err);
+  }
+});
+app.get("/commande-get/:id", async (req, res) => {
+  try {
+    const id = req.params.id;
+    const sql = `SELECT * FROM commande WHERE admine_id = ${id}`;
     const data = await client.query(sql);
     res.json(data.rows);
   } catch (err) {

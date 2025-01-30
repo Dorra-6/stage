@@ -1,10 +1,10 @@
 .my-custom-popup-class {
-    margin: 0 auto;
-  }
-  
-  .my-custom-container-class {
-    display: flex;
-    align-items: center;
-      z-index: 1300 !important;
-    justify-content: center;
-  }
+  margin: 0 auto;
+}
+
+.my-custom-container-class {
+  display: flex;
+  align-items: center;
+  z-index: 1300 !important;
+  justify-content: center;
+}

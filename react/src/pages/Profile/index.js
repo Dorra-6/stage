@@ -10,8 +10,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
-import ModifierClient from "../Client/ModifierClient";
+import React, { useState } from "react";
 const SignUpContainer = styled(Stack)(({ theme }) => ({
   height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
   minHeight: "100%",
@@ -42,8 +41,8 @@ function Profile() {
     localStorage.getItem("mot_de_passe")
   );
   const [email, setemail] = useState(localStorage.getItem("email"));
-  const [reset, setReset] = useState("");
-  const [admine, setAdmine] = useState("");
+  // const [reset, setReset] = useState("");
+  // const [admine, setAdmine] = useState("");
 
   const modified = () => {
     if (

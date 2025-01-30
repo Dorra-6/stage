@@ -11,7 +11,6 @@ import {
   styled,
   TextField,
 } from "@mui/material";
-import Produit from ".";
 const BootstrapDialog = styled(Dialog)(({ theme }) => ({
   "& .MuiDialogContent-root": {
     padding: theme.spacing(2),
@@ -25,7 +24,6 @@ const ModifierProduit = ({ setMise_a_Jour_produit, produit }) => {
   const Swal = require("sweetalert2");
   const [nom, setnom] = useState(produit?.nom);
   const [prix, setPrix] = useState(produit?.prix);
-  const [image, setImage] = useState("");
   const handleCloseP = () => {
     setOpenDialogP(false);
   };
@@ -42,7 +40,7 @@ const ModifierProduit = ({ setMise_a_Jour_produit, produit }) => {
         admine_id: localStorage.getItem("admine_id"),
       }),
     };
-    if (nom != produit.nom || prix != produit.prix) {
+    if (nom !== produit.nom || prix !== produit.prix) {
       fetch(
         `http://localhost:5000/produit-put/${produit.produit_id}`,
         requestOptions
@@ -81,7 +79,7 @@ const ModifierProduit = ({ setMise_a_Jour_produit, produit }) => {
     <div>
       <Button
         onClick={handleClickOpenP}
-        sx={{ bgcolor: "#4A6D85 ", color : "white"}}
+        sx={{ bgcolor: "#4A6D85 ", color: "white" }}
       >
         Modifier
       </Button>

@@ -4,25 +4,12 @@ import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
-import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
-import Switch from "@mui/material/Switch";
-import FormControlLabel from "@mui/material/FormControlLabel";
-import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
-import CloseIcon from "@mui/icons-material/Close";
 import "../pages/Client/index";
 import Avatar from "@mui/material/Avatar";
-import { deepOrange } from "@mui/material/colors";
 export default function MenuAppBar({ setConnexion }) {
-  const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
-
-  const handleChange = (event) => {
-    setAuth(event.target.checked);
-  };
-
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -56,7 +43,7 @@ export default function MenuAppBar({ setConnexion }) {
               color="inherit"
             >
               <Avatar
-                sx={{bgcolor : ['#4A6D85']}}
+                sx={{ bgcolor: ["#4A6D85"] }}
                 alt="Remy Sharp"
                 src="/broken-image.jpg"
               >

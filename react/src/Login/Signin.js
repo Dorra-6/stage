@@ -1,10 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import { useEffect, useState } from "react";
-import CssBaseline from "@mui/material/CssBaseline";
+import { useState } from "react";
 import Divider from "@mui/material/Divider";
-import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import FormControl from "@mui/material/FormControl";
 import TextField from "@mui/material/TextField";
@@ -12,7 +10,6 @@ import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
 import { styled } from "@mui/material/styles";
-import AllRoute from "../AllRoute";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
@@ -46,13 +43,7 @@ const SignUpContainer = styled(Stack)(({ theme }) => ({
     position: "absolute",
     zIndex: -1,
     inset: 0,
-    backgroundImage:
-      "radial-gradient(ellipse at 50% 50%, hsl(210, 100%, 97%), hsl(0, 0%, 100%))",
-    backgroundRepeat: "no-repeat",
-    ...theme.applyStyles("dark", {
-      backgroundImage:
-        "radial-gradient(at 50% 50%, hsla(210, 100%, 16%, 0.5), hsl(220, 30%, 5%))",
-    }),
+   
   },
 }));
 
@@ -71,7 +62,7 @@ export default function SignUp({ setLoginOrCreationCompte, setConnexion }) {
       }),
     };
     if (motDePasse.length > 0 && email.length > 0) {
-      fetch("http://localhost:5000/admine-Login", requestOptions)
+      fetch("http://localhost:5000/admine-Login", requestOptions) //admin post que mdp et email
         .then((response) => response.json())
         .then((data) => {
           if (data.length > 0) {
@@ -105,8 +96,7 @@ export default function SignUp({ setLoginOrCreationCompte, setConnexion }) {
   };
 
   return (
-    <Box sx={{bgcolor : ['#2C3E50']}}>
-      <CssBaseline enableColorScheme />
+    <Box sx={{ bgcolor: ["#2C3E50"] }}>
       <SignUpContainer direction="column" justifyContent="space-between">
         <Card variant="outlined">
           <Typography
@@ -152,7 +142,7 @@ export default function SignUp({ setLoginOrCreationCompte, setConnexion }) {
             </FormControl>
 
             <Button fullWidth variant="contained" onClick={Connexion}>
-              conencter
+              Connecter
             </Button>
           </Box>
           <Divider>

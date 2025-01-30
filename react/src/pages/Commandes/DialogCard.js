@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import DialogActions from "@mui/material/DialogActions";
 import IconButton from "@mui/material/IconButton";
 import CloseIcon from "@mui/icons-material/Close";
 import {
@@ -25,7 +24,8 @@ const DialogCard = ({
   ouvre,
   setOuvre,
   produitTemporaire,
-  table, setTable
+  table,
+  setTable,
 }) => {
   const [count, setCount] = useState(1);
 
@@ -33,7 +33,7 @@ const DialogCard = ({
     setOuvre(false);
     setCount(1);
   };
-  
+
   const handleAddCommande = () => {
     const newCommande = {
       nom: produitTemporaire.nom,
@@ -42,10 +42,8 @@ const DialogCard = ({
     };
     setTable([...table, newCommande]);
   };
-    // handleAddCommande(index);
   return (
     <div>
-      {/* {produit.map((produit) => ( */}
       <BootstrapDialog
         onClose={handleClose}
         aria-labelledby="customized-dialog-title"
@@ -72,7 +70,7 @@ const DialogCard = ({
         <DialogContent dividers>
           <Stack direction="row" spacing={3}>
             <Button
-              sx={{ bgcolor: "#4A6D85 " , color : "white"}}
+              sx={{ bgcolor: "#4A6D85 ", color: "white" }}
               size="large"
               onClick={() => setCount(count + 1)}
             >
@@ -80,7 +78,7 @@ const DialogCard = ({
             </Button>
             <Box sx={{ ml: 2, fontSize: 40, mb: 4 }}>{count}</Box>
             <Button
-              style={{ backgroundColor: "#D94F4F" , color : "white"}}
+              style={{ backgroundColor: "#D94F4F", color: "white" }}
               size="large"
               onClick={() => setCount(count > 1 ? count - 1 : count)}
             >
@@ -95,12 +93,11 @@ const DialogCard = ({
           }}
           // color="black"
           // size="large"
-          sx={{ bgcolor: "#4A6D85 " , color : "white"}}
+          sx={{ bgcolor: "#4A6D85 ", color: "white" }}
         >
           {" "}
           Commander
         </Button>
-        <DialogActions></DialogActions>
       </BootstrapDialog>
     </div>
   );

@@ -5,7 +5,6 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 
 import {
-  Box,
   Button,
   Card,
   CardActions,
@@ -22,52 +21,50 @@ function Commande() {
   const [produit, setproduit] = useState([]);
   const [ouvre, setOuvre] = React.useState(false);
   const [produitTemporaire, setproduitTemporaire] = React.useState([]);
-  const [PrixTotale, setPrixTotale] = React.useState(0);
-  const [nom_client, setnom_client] = useState("")
+  // const [PrixTotale, setPrixTotale] = React.useState(0);
+  // const [nom_client, setnom_client] = useState("");
   const [table, setTable] = useState([]);
 
-  const Swal = require('sweetalert2')
-const PostNewCommande = () => { 
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ 
-      prixt: table.reduce((sum, table) => sum + table.total, 0),
-      nom_client: nom_prenom,
-      admine_id : localStorage.getItem("admine_id")
-     })
-};
-if ( nom_prenom.length === 0){
-  Swal.fire({
-    icon: "error",
-    title: "Oops...",
-    text: "il faut sélectionner un client!"    
-  });
-}else {
-fetch('http://localhost:5000/commande-post', requestOptions)
-    .then(response => response.json())
-    .then(data => 
-      setTable([])
-
-    )}}
+  const Swal = require("sweetalert2");
+  const PostNewCommande = () => {
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        prixt: table.reduce((sum, table) => sum + table.total, 0),
+        nom_client: nom_prenom,
+        admine_id: localStorage.getItem("admine_id"),
+      }),
+    };
+    if (nom_prenom.length === 0) {
+      Swal.fire({
+        icon: "error",
+        title: "Oops...",
+        text: "il faut sélectionner un client!",
+      });
+    } else {
+      fetch("http://localhost:5000/commande-post", requestOptions)
+        .then((response) => response.json())
+        .then((data) => setTable([]));
+    }
+  };
   const handleClickOpen = () => {
     setOuvre(true);
   };
 
-  // const [reset, setReset] = useState("");
   const handleChange = (e) => {
     setnom_prenom(e.target.value);
   };
 
   useEffect(() => {
-    fetch("http://localhost:5000/client-get")
+    fetch(`http://localhost:5000/client-get/${localStorage.getItem("admine_id")}`)
       .then((response) => response.json())
       .then((data) => {
         setClient(data);
       });
   }, []);
   useEffect(() => {
-    fetch("http://localhost:5000/produit-get")
+    fetch(`http://localhost:5000/produit-get/${localStorage.getItem("admine_id")}`)
       .then((response) => response.json())
       .then((data) => {
         setproduit(data);
@@ -131,7 +128,7 @@ fetch('http://localhost:5000/commande-post', requestOptions)
               </CardContent>
               <CardActions className="flex justify-between">
                 <Button
-                  sx={{ bgcolor: "#4A6D85 " , color : "white"}}
+                  sx={{ bgcolor: "#4A6D85 ", color: "white" }}
                   onClick={() => {
                     handleClickOpen();
                     setproduitTemporaire(produit);
@@ -172,7 +169,10 @@ fetch('http://localhost:5000/commande-post', requestOptions)
                     <td>{table.count}</td>
                     <td>{table.total} $</td>
                     <td>
-                      <Button sx={{ bgcolor: "#D94F4F" , color : "white"}} onClick={() => handleRemove(index)}>
+                      <Button
+                        sx={{ bgcolor: "#D94F4F", color: "white" }}
+                        onClick={() => handleRemove(index)}
+                      >
                         Remove
                       </Button>
                     </td>
@@ -180,17 +180,20 @@ fetch('http://localhost:5000/commande-post', requestOptions)
                 ))}
               </tbody>
               <tfoot>
-              
-                <tr >
-                  <td className="font-bold">
-                    Totale: 
-                  </td>
-                  <td >
-                  {table.reduce((sum, table) => sum + table.total, 0)}  $
+                <tr>
+                  <td className="font-bold">Totale:</td>
+                  <td>
+                    {table.reduce((sum, table) => sum + table.total, 0)} $
                   </td>
                   <br />
-                  <th> 
-                    <Button sx={{ bgcolor: "#4A6D85 " , color :"white"}} onClick={PostNewCommande}> Commander</Button>
+                  <th>
+                    <Button
+                      sx={{ bgcolor: "#4A6D85 ", color: "white" }}
+                      onClick={PostNewCommande}
+                    >
+                      {" "}
+                      Commander
+                    </Button>
                   </th>
                 </tr>
               </tfoot>

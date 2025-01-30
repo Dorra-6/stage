@@ -8,7 +8,11 @@ import {
   Divider,
   Box,
 } from "@mui/material";
-import { Home, ShoppingCart, ContactMail, TimeToLeave, Timelapse } from "@mui/icons-material"; // Import icons
+import {
+  ShoppingCart,
+  ContactMail,
+  Timelapse,
+} from "@mui/icons-material"; 
 import { Link, useLocation } from "react-router-dom";
 import StoreRoundedIcon from "@mui/icons-material/StoreRounded";
 import LocalOfferRoundedIcon from "@mui/icons-material/LocalOfferRounded";
@@ -33,17 +37,16 @@ function DrawerLeft() {
           padding: "16px",
           fontWeight: "bold",
           fontSize: "18px",
-          bgcolor: ["#92817A"],
         }}
       >
-        My Application
+        AdmineX
       </Box>
       <Divider />
       <List>
         <ListItem
           component={Link}
           to="/Client"
-          className={location.pathname == "/Client" ? "bg-slate-200" : null}
+          className={location.pathname === "/Client" ? "bg-slate-200" : null}
         >
           <ListItemIcon>
             <StoreRoundedIcon />
@@ -53,7 +56,7 @@ function DrawerLeft() {
         <ListItem
           component={Link}
           to="/Produit"
-          className={location.pathname == "/Produit" ? "bg-slate-200" : null}
+          className={location.pathname === "/Produit" ? "bg-slate-200" : null}
         >
           <ListItemIcon>
             <LocalOfferRoundedIcon />
@@ -63,18 +66,17 @@ function DrawerLeft() {
         <ListItem
           component={Link}
           to="/Commande"
-          className={location.pathname == "/Commande" ? "bg-slate-200" : null}
+          className={location.pathname === "/Commande" ? "bg-slate-200" : null}
         >
           <ListItemIcon>
             <ShoppingCart />
           </ListItemIcon>
           <ListItemText primary="Commande" />
         </ListItem>
-        
         <ListItem
           component={Link}
           to="/Historique"
-          className={location.pathname == "/Historique" ? "bg-slate-200" : null}
+          className={location.pathname === "/Historique" ? "bg-slate-200" : null}
         >
           <ListItemIcon>
             <Timelapse />
@@ -84,7 +86,7 @@ function DrawerLeft() {
         <ListItem
           component={Link}
           to="/Profile"
-          className={location.pathname == "/Profile" ? "bg-slate-200" : null}
+          className={location.pathname === "/Profile" ? "bg-slate-200" : null}
         >
           <ListItemIcon>
             <ContactMail />

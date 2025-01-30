@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Signin from "./Login/Signin";
 import CreationCompte from "./Login/CreationCompte";
 import AllRoute from "./AllRoute";
@@ -17,14 +17,14 @@ function App() {
       {!connexion ? (
         LoginOrCreationCompte ? (
           <Signin
-            {...{setLoginOrCreationCompte}}
+            {...{ setLoginOrCreationCompte }}
             setConnexion={setConnexion}
           />
         ) : (
           <CreationCompte setLoginOrCreationCompte={setLoginOrCreationCompte} />
         )
       ) : (
-        <AllRoute setConnexion={setConnexion}/>
+        <AllRoute setConnexion={setConnexion} />
       )}
     </div>
   );
